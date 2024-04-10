@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>
+        // This line declares a variable called "url" and assigns it a value of "Api_Endpoint_Url"
+        // deployment remarks: refreshed4
+        let url = "https://script.google.com/macros/s/AKfycbzpHQHnD1n01DL3ONG48Le8I08g326xPI32m1RxtUtty5zllyO-k2pFDwe9GrqlBUUa9Q/exec";
+        let folder_sumatra = '18OLcLDIpnI7ErgJHgaS1DztCSXqt2L0b';
+        let folder_java = '1abv_c9lvKfOh_dE6GQAXHXqKj6GAOzUz';
+        let folder_kalimantan = '1lP84IOUvlY1VaxiYZM6S_3-HuUx-NHZW';
+        let folder_all = '1CvPDze6Ye7gjrNnHxtY2ScZiwSsrZsGy';      
+        let startTime = performance.now();  
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Iframe Layout</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .frame-container {
+            border: 1px solid rgb(255, 255, 255);
+            /* Add border style */
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            /* Remove margin */
+            padding: 0;
+            /* Remove padding */
+        }
+
+        #container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #topFrame {
+            height: 8%;
+            background-color: hsl(219, 100%, 50%);
+            color: white;
+        }
+
+        #bottomFrames {
+            flex: 1;
+            /* Take up remaining space */
+            display: flex;
+            flex-direction: row;
+        }
+
+        .halfleft {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            /* Add flex display */
+            flex-direction: column;
+            /* Arrange iframes in column */
+        }
+
+        .halfright {
+            flex: 1;
+            /* Take up remaining space */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .iframe-container {
+            display: flex;
+            /* Add flex display */
+            flex-direction: column;
+            /* Arrange iframes in column */
+            flex: 1;
+            /* Take up remaining space */
+        }
+
+
+        :root {
+            --ref-pos: -70px;
+            --ref-pos0: -20px;
+            --anim-fast: cubic-bezier(.43, -0.33, .79, .21);
+            --anim-vfast: cubic-bezier(.43, -0.33, .79, .21);
+            --anim-anticipate: cubic-bezier(.43, -0.33, .79, .21);
+            --anim-instant: cubic-bezier(.17, .88, .53, .99);
+        }
+
+        .open-sans-thin {
+            font-family: "Open Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 300;
+            font-style: normal;
+            font-variation-settings:
+                "wdth" 100;
+        }
+
+        #lowerdiv {
+            z-index: 1;
+            background-color: hsl(219, 100%, 50%);
+            color: white;
+            font-family: Tahoma, Helvetica, sans-serif;
+        }
+
+        .subtitle {
+            padding-left: 12px;
+            padding-top: 15px;
+            color: white;
+            transition: var(--anim-instant) transform 0.6s;
+            transform-origin: left;
+        }
+
+        .result {
+            padding-left: 12px;
+            padding-top: 15px;
+            color: white;
+            transition: var(--anim-instant) transform 0.6s;
+            transform-origin: left;
+        }
+
+        .subtitle:hover {
+            transform: scale(1.2);
+            /* Make it a little bigger on hover */
+        }
+
+        #drop-area {
+            z-index: -1;
+            line-height: 70px;
+            position: relative;
+            padding-left: 20px;
+            text-align: left;
+            background-color: hsl(219, 100%, 40%);
+            color: white;
+            /* text-shadow: 2px 2px black; */
+            /* text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; */
+            /* text-shadow: -2px 0 rgb(128, 128, 128), 0 2px rgb(128, 128, 128), 2px 0 rgb(128, 128, 128), 0 -2px rgb(128, 128, 128); */
+            transition: var(--anim-instant) transform 0.6s, opacity 0.6s ease-in;
+            top: 8%;
+            transform: translateY(var(--ref-pos0));
+            opacity: 0;
+        }
+
+        #drop-area2 {
+            z-index: -1;
+            line-height: 40px;
+            position: relative;
+            padding-left: 20px;
+            text-align: left;
+            /* background-color: rgb(255, 247, 133); */
+            background-color: hsl(219, 100%, 50%);
+            color: white;
+            /* text-shadow: 2px 2px black; */
+            /* text-shadow: -2px 0 rgb(128, 128, 128), 0 2px rgb(128, 128, 128), 2px 0 rgb(128, 128, 128), 0 -2px rgb(128, 128, 128); */
+            transition: var(--anim-instant) transform 0.6s, opacity 0.4s ease-in, line-height 0.3s ease-in;
+            transition-delay: 0.1s;
+            top: 8%;
+            transform: translateY(var(--ref-pos));
+            opacity: 0;
+        }
+
+        #drop-area3 {
+            z-index: -1;
+            line-height: 40px;
+            position: relative;
+            padding-left: 20px;
+            text-align: left;
+            /* background-color: rgba(255, 102, 0, 0.2); */
+            background-color: hsl(219, 100%, 40%);
+            color: white;
+            /* text-shadow: 2px 2px black; */
+            /* text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; */
+            /* text-shadow: -2px 0 rgb(128, 128, 128), 0 2px rgb(128, 128, 128), 2px 0 rgb(128, 128, 128), 0 -2px rgb(128, 128, 128); */
+            transition: var(--anim-instant) transform 0.6s, opacity 0.2s ease-in, line-height 0.3s ease-in;
+            transition-delay: 0.15s;
+            top: 8%;
+            transform: translateY(calc(var(--ref-pos)*2));
+            opacity: 0;
+        }
+
+        #lowerdiv:hover .rectangle {
+            transform: translateY(0px);
+            opacity: 1;
+            line-height: 70px;
+        }
+
+        #upperdiv {
+            background-color: hsl(219, 100%, 50%);
+            margin-bottom: -1px;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        #uploadStatus {
+            padding-left: 20px;
+            padding-top: 10px;
+            color: white;
+            transition: var(--anim-instant) transform 0.6s, opacity 0.4s ease-in, line-height 0.3s ease-in;
+            transition-delay: 0.25s;
+            top: 8%;
+            transform: translateY(calc(var(--ref-pos)*2.6));
+            opacity: 0.0;
+
+        }
+
+        #nokia svg {
+            transition: var(--anim-instant) transform 0.6s;
+        }
+
+        #nokia:hover svg {
+            transform: scale(1.1);
+            /* Make it a little bigger on hover */
+        }
+
+        .search-container {
+            margin-top: 10px;
+            /* Adjust as needed */
+        }
+
+        .search-input {
+            width: 110px;
+            /* Adjust width as needed */
+            padding: 5px;
+            margin-left: 10px;
+            border: 1px solid #ccc;
+            border-radius: 0px;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .search-button {
+            width: 120px;
+            /* Adjust width as needed */
+            padding: 5px;
+            margin-left: 10px;
+            margin-top: 10px;
+
+            border: 1px solid #ccc;
+            border-radius: 0px;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .search-input[value="Site ID"] {
+            color: rgba(0, 0, 0, 0.5);
+            /* Semi-transparent font color */
+        }
+
+        .search-input:focus {
+            color: black;
+            /* Opaque font color on focus */
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+    <div id="container">
+        <div id="topFrame">
+            <span id="nokia" style="margin-left: 15px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="90" height="40" viewBox="0 0 55 13" fill="none"
+                    style="margin-top: 11px;">
+                    <g clip-path="url(#clip0_1370_711152)">
+                        <path
+                            d="M38.0192 0.395349V12.6046H39.842V0.395349H38.0192ZM18.5454 0.186787C14.9944 0.186771 12.2392 2.78308 12.2392 6.5C12.2392 10.3843 14.9944 12.8133 18.5454 12.8132C22.0964 12.8132 24.8572 10.3843 24.8516 6.5C24.8464 2.97836 22.0964 0.186803 18.5454 0.186787ZM23.0321 6.5C23.0321 9.25164 21.0233 11.0752 18.5454 11.0752C16.0674 11.0752 14.0587 9.25164 14.0587 6.5C14.0587 3.79827 16.0674 1.92486 18.5454 1.92486C21.0233 1.92486 23.0321 3.79827 23.0321 6.5ZM0 1.10175e-06V12.6046H1.86027V4.27476L11.5273 13V10.3867L0 1.10175e-06ZM26.2225 6.5L32.9874 12.6047H35.6999L28.9248 6.5L35.6999 0.395343H32.9874L26.2225 6.5ZM55 12.6046H52.9948L51.5285 9.90093H44.8871L43.4206 12.6046H41.4153L43.8437 8.09822H50.5748L47.2185 1.83556L48.2078 0L55 12.6046Z"
+                            fill="white"></path>
+                    </g>
+                    <defs>
+                        <clippath id="clip0_1370_711152">
+                            <rect width="73" height="12.361" fill="white"></rect>
+                        </clippath>
+                    </defs>
+                </svg>
+            </span>
+        </div>
+
+
+        <div id="bottomFrames">
+            <div class="halfleft">
+                <div class="frame-container" id="leftBottomFrame"></div>
+            </div>
+            <div class="halfright">
+                <div class="iframe-container">
+                    <div class="frame-container" id="upperdiv">
+                        <div class="subtitle open-sans-thin">Search</div>
+                        <div class="search-container" id="searchContainer">
+                            <input type="text" id="searchInput" class="search-input" value="21SPT0169"
+                                onclick="clearValue()" onblur="resetValue()">
+                            <button onclick="searchSite()" class="search-button">Search</button>
+                        </div>
+                        <div>
+                            <div class="result  open-sans-thin" id="searchResult">Result</div>
+                        </div>
+                        <script>
+                            function showSearchContainer() {
+                                var searchContainer = document.getElementById("searchContainer");
+                                searchContainer.style.display = "block";
+                            }
+
+                            function clearValue() {
+                                var searchInput = document.getElementById("searchInput");
+                                // searchInput.value = "";
+                            }
+
+                            function resetValue() {
+                                var searchInput = document.getElementById("searchInput");
+                                if (searchInput.value === "") {
+                                    searchInput.value = "Site ID";
+                                }
+                            }
+
+                            function searchSite() {
+                                // Your search functionality here
+                                startTime = performance.now();
+
+                                let isSending = false;
+                                const sendQueue = [];
+
+                                function sendPostRequest(foldername, newfolder, folders, folderId) {
+                                    return new Promise((resolve, reject) => {
+                                        const requestData = {
+                                            folder: foldername,
+                                            newfolder: newfolder,
+                                            folders: folders,
+                                            folderId: folderId
+                                        };
+
+                                        sendQueue.push({ requestData, resolve, reject });
+
+                                        if (!isSending) {
+                                            processQueue();
+                                        }
+                                    });
+                                }
+
+                                function processQueue() {
+                                    if (sendQueue.length === 0) {
+                                        isSending = false;
+                                        return;
+                                    }
+
+                                    isSending = true;
+                                    const { requestData, resolve, reject } = sendQueue.shift();
+
+
+                                    fetch(url, {
+                                        redirect: "follow",
+                                        method: 'POST',
+                                        body: JSON.stringify(requestData),
+                                        headers: {
+                                            "Content-Type": "text/plain;charset=utf-8",
+                                        },
+                                    })
+                                        .then(response => {
+                                            if (!response.ok) {
+                                                throw new Error(`HTTP error! Status: ${response.status}`);
+                                            }
+                                            return response.text();
+                                        })
+                                        .then(responseData => {
+                                            console.log("server's respond:" + responseData);
+                                            resolve(responseData);
+                                            processQueue(); // Process next request
+                                        })
+                                        .catch(error => {
+                                            console.error('Error:', error.message);
+                                            reject(error);
+                                            processQueue(); // Process next request
+                                        });
+                                }
+
+                                function updateDuration() {
+                                    const endTime = performance.now();
+                                    const duration = ((endTime - startTime) / 1000).toFixed(1);
+                                    var searchResult = document.getElementById("searchResult");
+                                    uploadStatus.innerHTML = "\nSearching.. <i>" + duration + " sec</i>";
+                                }
+
+                                // alert("Searching...");
+
+                                let intervalID = setInterval(updateDuration, 1000);
+
+                                //uploadStatus.innerText = "\nUpload successful (" + duration + " sec)" + "\nNow creating slide..";
+                                var searchInput = document.getElementById("searchInput");
+                                console.log('searchInput', searchInput.value);
+
+
+                                sendPostRequest('search', true, searchInput.value, folder_all).then(responseData => {
+
+                                    // To stop the interval, call clearInterval with the interval ID
+                                    clearInterval(intervalID);
+
+                                    console.log("response:", responseData);
+                                    if (responseData.startsWith("search done")) {
+                                        var splittedData = responseData.split(";");
+                                        console.log(splittedData)
+                                        var folderLink = splittedData[1].trim(); // Second split for folder
+                                        const cnt = folderLink.length;
+
+                                        var searchResult = document.getElementById("searchResult");
+
+                                        for (let ititle = 1; ititle < splittedData.length; ititle += 2) {
+                                            //start from second index and on odd index only
+                                            var title = splittedData[ititle];
+                                            var titlelink = splittedData[ititle + 1];
+                                            searchResult.innerHTML += '<br><a href="' + titlelink + '" target="_blank" style="color: white;">' + title + '</a>';
+                                            // Handle the server response as needed
+                                        }
+                                    }
+                                })
+                                    .catch(error => {
+                                        console.error("Error:", error);
+                                        // Handle errors if the request fails
+                                    });
+                                alert("Searching done...");
+
+                            }
+                        </script>
+                    </div>
+                </div>
+                <div class="iframe-container">
+                    <div class="frame-container open-sans-thin" id="lowerdiv">
+                        <div class="subtitle open-sans-thin">Uploader</div>
+                        <div id="drop-area" class="rectangle open-sans-thin">Java
+                        </div>
+                        <div id="drop-area2" class="rectangle open-sans-thin">Sumatra
+                        </div>
+                        <div id="drop-area3" class="rectangle open-sans-thin">Kalimantan
+                        </div>
+                        <input type="file" accept="image/*" multiple id="fileInput">
+                        <div id="uploadStatus" class="status open-sans-thin">testing</div>
+                        <div id="imageContainer"></div>
+                        <img src="" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            var topFrame = document.getElementById('topFrame');
+            var leftBottomFrame = document.getElementById('leftBottomFrame');
+            var upperdiv = document.getElementById('upperdiv');
+            var lowerdiv = document.getElementById('lowerdiv');
+
+            function setIframeSizes() {
+                var windowHeight = window.innerHeight;
+                var topFrameHeight = topFrame.offsetHeight;
+                var remainingHeight = windowHeight - topFrameHeight;
+                var upperdivHeight = 0.6 * remainingHeight; // You can set the vertical separator dynamically here
+                upperdiv.style.height = upperdivHeight + 'px';
+                lowerdiv.style.height = (remainingHeight - upperdivHeight) + 'px';
+
+                var halfleft = document.querySelector('.halfleft');
+                var newWidth = 80 + '%'; // You can set the horizontal separator here
+                halfleft.style.width = newWidth;
+                var leftBottomFrameWidth = leftBottomFrame.offsetWidth;
+                var remainingWidth = document.getElementById('bottomFrames').offsetWidth - leftBottomFrameWidth;
+                upperdiv.style.width = remainingWidth + 'px';
+                lowerdiv.style.width = remainingWidth + 'px';
+            }
+
+            // function addTextToIframes() {
+            //     topFrame.innerHTML = topFrame.innerHTML+'Top Frame: ' + topFrame.id;
+            //     leftBottomFrame.innerHTML = 'Left Bottom Frame: ' + leftBottomFrame.id;
+            //     upperdiv.innerHTML = 'Upper div: ' + upperdiv.id;
+            //     lowerdiv.innerHTML = 'Lower div: ' + lowerdiv.id;
+            // }
+
+            setIframeSizes();
+            // addTextToIframes();
+            window.addEventListener('resize', setIframeSizes);
+        }
+    </script>
+
+    <!-- script drag drop -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const dropArea = document.getElementById("drop-area");
+            const dropArea2 = document.getElementById("drop-area2");
+            const dropArea3 = document.getElementById("drop-area3");
+            const rectangles = document.querySelectorAll('.rectangle');
+            const lowerdiv = document.getElementById("lowerdiv");
+            let fileInput = document.querySelector("input");
+            let imageContainer = document.getElementById("imageContainer");
+            let uploadStatus = document.getElementById("uploadStatus");
+            let foldername = '';
+
+            // Prevent default drag behaviors
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                // dropArea.addEventListener(eventName, preventDefaults, false);
+                // dropArea2.addEventListener(eventName, preventDefaults, false);
+                // dropArea3.addEventListener(eventName, preventDefaults, false);
+                lowerdiv.addEventListener(eventName, preventDefaults, false);
+            });
+
+            // Highlight drop area when item is dragged over it            
+            document.body.addEventListener('dragenter', preparedrag, false);
+            // dropArea.addEventListener('drop', handleDrop, false);
+            // dropArea2.addEventListener('drop', handleDrop, false);
+            // dropArea3.addEventListener('drop', handleDrop, false);
+            lowerdiv.addEventListener('drop', handleDrop, false);
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            function preparedrag(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                console.log('prepare drag');
+                var rectangles = lowerdiv.querySelectorAll('.rectangle');
+                // Loop through each rectangle and apply the hover effect
+                rectangles.forEach(function (rectangle) {
+                    rectangle.style.transform = 'translateY(0px)';
+                    rectangle.style.opacity = '1';
+                    rectangle.style.lineHeight = '70px';
+                });
+                uploadStatus.style.opacity = '0';
+
+            }
+
+            function postdrag(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+            }
+
+            function handleDrop(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+
+                const droppedFiles = e.dataTransfer.files;
+                const items = e.dataTransfer.items;
+
+                if (droppedFiles.length === 0) return;
+
+                // Determine which rectangle the drop occurred on
+                const rectDroppedOn = getRectangleDroppedOn(e.clientX, e.clientY);
+                if (rectDroppedOn) {
+                    var sdrop = rectDroppedOn.innerText;
+
+                    // rectDroppedOn.innerText = "dropped";
+                    if (sdrop == "Java") {
+                        // dropArea2.style.transform='translateY(-var(--ref-pos))';
+                        dropArea2.style.opacity = 0;
+                        // dropArea3.style.transform='translateY(-calc(var(--ref-pos)*2))'
+                        dropArea3.style.opacity = 0;
+                        dropArea.style.transform = 'translateY(calc(var(--ref-pos)*0.55))'
+                        dropArea.style.backgroundColor = 'hsl(219, 100%, 50%)';
+                    } else if (sdrop == "Sumatra") {
+                        dropArea.style.opacity = 0;
+                        dropArea3.style.opacity = 0;
+                        dropArea2.style.transform = 'translateY(calc(var(--ref-pos)*1.55))'
+                    } else if (sdrop == "Kalimantan") {
+                        dropArea.style.opacity = 0;
+                        dropArea2.style.opacity = 0;
+                        dropArea3.style.transform = 'translateY(calc(var(--ref-pos)*2.55))'
+                        dropArea3.style.backgroundColor = 'hsl(219, 100%, 50%)';
+                    }
+                    console.log(items);
+                    console.log(`Upload Status ${droppedFiles.length} file(s):`);
+                    uploadStatus.innerText = `Upload Status ${fileInput.files.length} file(s):`;
+                    // uploadStatus.style.transform = 'translateY(0px)';
+                    uploadStatus.style.opacity = '1';
+                    // uploadStatus.style.lineHeight = '70px';
+                    console.log('Dropped at: ' + sdrop);
+                    uploadall(items, sdrop);
+                }
+                lowerdiv.classList.remove('hovered');
+
+            }
+
+            function getRectangleDroppedOn(x, y) {
+                for (let i = 0; i < rectangles.length; i++) {
+                    const rect = rectangles[i].getBoundingClientRect();
+                    if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+                        return rectangles[i];
+                    }
+                }
+                return null;
+            }
+        });
+
+        function uploadall(items, region) {
+            // Clear previous images in the container
+            imageContainer.innerHTML = '';
+            uploadStatus.innerHTML = '';
+            startTime = performance.now();
+
+            let files = [];
+            let folders = [];
+            let folderpaths = [];
+            let uploadcount = 0;
+            let successcount = 0;
+            let failcount = 0;
+            let sfail = '';
+            let isSending = false;
+            const sendQueue = [];
+
+            function sendPostRequest(foldername, newfolder, folders, folderId) {
+                return new Promise((resolve, reject) => {
+                    const requestData = {
+                        folder: foldername,
+                        newfolder: newfolder,
+                        folders: folders,
+                        folderId: folderId
+                    };
+
+                    sendQueue.push({ requestData, resolve, reject });
+
+                    if (!isSending) {
+                        processQueue();
+                    }
+                });
+            }
+
+            function processQueue() {
+                if (sendQueue.length === 0) {
+                    isSending = false;
+                    return;
+                }
+
+                isSending = true;
+                const { requestData, resolve, reject } = sendQueue.shift();
+
+
+                fetch(url, {
+                    redirect: "follow",
+                    method: 'POST',
+                    body: JSON.stringify(requestData),
+                    headers: {
+                        "Content-Type": "text/plain;charset=utf-8",
+                    },
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.text();
+                    })
+                    .then(responseData => {
+                        console.log("server's respond:" + responseData);
+                        resolve(responseData);
+                        processQueue(); // Process next request
+                    })
+                    .catch(error => {
+                        console.error('Error:', error.message);
+                        reject(error);
+                        processQueue(); // Process next request
+                    });
+            }
+
+            function updateDuration() {
+                const endTime = performance.now();
+                const duration = ((endTime - startTime) / 1000).toFixed(1);
+                // uploadStatus.innerText = "\nCreating slide.. <i>" + duration + " sec</i>";
+                uploadStatus.innerHTML = "\nCreating slide.. <i>" + duration + " sec</i>";
+            }
+
+            async function postfile4(file, folderpath, folderId) {
+                return new Promise((resolve, reject) => {
+                    let fr = new FileReader();
+                    fr.onloadend = () => {
+                        let res = fr.result;
+                        let spt = res.split("base64,")[1];
+                        let obj = {
+                            base64: spt,
+                            type: file.type,
+                            name: file.name,
+                            folder: folderpath,
+                            folderId: folderId
+                        };
+                        fetch(url, {
+                            redirect: "follow",
+                            method: 'POST',
+                            body: JSON.stringify(obj),
+                            headers: {
+                                "Content-Type": "text/plain;charset=utf-8",
+                            },
+
+                        })
+                            .then(r => r.text())
+                            .then(data => {
+
+                                if (data.includes("uploaded")) {
+                                    successcount = successcount + 1;
+                                    //console.log('uploadcount=' + uploadcount);
+                                }
+                                else {
+                                    failcount = failcount + 1;
+                                }
+
+                                let status = data.includes("uploaded") ? "" : '\n' + file.path;
+                                sfail += `${status}`;
+
+
+                                endTime = performance.now();
+                                duration = ((endTime - startTime) / 1000).toFixed(1);
+                                console.log("Uploading " + successcount + " files: " + duration + " s");
+
+                                endTime = performance.now();
+                                duration = ((endTime - startTime) / 1000).toFixed(1);
+                                var duration1 = duration;
+                                //uploadStatus.innerText = "\nUploading " + successcount + " of " + uploadcount + " <i>" + duration + " sec</i>";
+                                uploadStatus.innerHTML = "\nUploading " + successcount + " of " + uploadcount + " <i>" + duration + " sec</i>";
+                                console.log("debug uploadcount=" + uploadcount + " successcount=" + successcount);
+                                if (uploadcount == successcount) {
+                                    console.log("debug last upload");
+                                    let intervalID = setInterval(updateDuration, 4700);
+
+                                    //uploadStatus.innerText = "\nUpload successful (" + duration + " sec)" + "\nNow creating slide..";
+
+                                    sendPostRequest('done', true, folderpaths, folderId).then(responseData => {
+
+                                        // To stop the interval, call clearInterval with the interval ID
+                                        clearInterval(intervalID);
+
+                                        console.log("response:", responseData);
+                                        if (responseData.startsWith("ack done")) {
+                                            var splittedData = responseData.split(";");
+                                            var folderLink = splittedData[1].trim(); // Second split for folder
+                                            var slideLink = splittedData[2].trim(); // Third split for slide
+                                            var duration2 = splittedData[3].trim(); // Third split for slide
+                                            var duration3 = splittedData[4].trim(); // Third split for slide
+                                            var duration4 = splittedData[5].trim(); // Third split for slide
+
+                                            // Further operations with splittedData
+                                            uploadStatus.innerText = "\nUpload finished " + " " + duration1 + " sec";
+                                            uploadStatus.innerText += "\nSlide created   " + " " + duration2 + " sec";
+                                            uploadStatus.innerText += "\nSheet updated   " + " " + duration3 + " sec";
+                                            uploadStatus.innerText += "\nReminder sent  " + " " + duration4 + " sec";
+                                            uploadStatus.innerHTML += '<br><br><a href="' + folderLink + '" target="_blank" style="color: white;">folder</a>'; // Adding folder hyperlink with target="_blank" and white text color
+                                            uploadStatus.innerHTML += '<br><a href="' + slideLink + '" target="_blank" style="color: white;">slide</a>'; // Adding slide hyperlink with target="_blank" and white text color
+                                            // Handle the server response as needed
+                                        }
+                                    })
+                                        .catch(error => {
+                                            console.error("Error:", error);
+                                            // Handle errors if the request fails
+                                        });
+
+                                    // folderResponses.push(folderResponse);
+                                    // await Promise.all(folderResponses);
+                                }
+
+                                //uploadStatus.innerText += `${status}`;
+                                // let img = document.createElement("img");
+                                // img.style.maxWidth = "300px";
+                                // img.style.height = "auto";
+                                // img.src = res;
+                                // imageContainer.appendChild(img);
+                                resolve(data); // Resolve the promise with the response
+                            })
+                            .catch(error => reject(error)); // Reject the promise if there's an error
+                    };
+                    fr.readAsDataURL(file);
+                });
+            }
+
+
+            async function traverseItems(currentItem, path) {
+                if (currentItem.isFile) {
+                    // If it's a file, add it to the files array
+                    const file = await new Promise(resolve => currentItem.file(resolve));
+                    let filePath = path;
+                    if (filePath.endsWith('/')) {
+                        filePath = filePath.slice(0, -1); // Remove the trailing '/'
+                    }
+                    files.push({ item: file, name: filePath });
+                    //console.log("inFiles:" + file.name, files);
+                } else if (currentItem.isDirectory) {
+                    // If it's a directory, iterate through its items
+                    folders.push({ item: currentItem, name: path + currentItem.name + '/' });
+                    folderpaths.push(path + currentItem.name + '/');
+                    let directoryReader = currentItem.createReader();
+                    let entries = await new Promise(resolve => directoryReader.readEntries(resolve));
+                    for (let entry of entries) {
+                        await traverseItems(entry, path + currentItem.name + "/");
+                    }
+                }
+            }
+
+
+
+            async function handleDroppedItems(items) {
+                try {
+                    // Array to store promises
+                    const promises = [];
+
+                    // Iterate through dropped items
+                    for (let i = 0; i < items.length; i++) {
+                        let item = items[i].webkitGetAsEntry();
+                        if (item) {
+                            // Push each promise returned by traverseItems to promises array
+                            promises.push(traverseItems(item, ""));
+                        }
+                    }
+
+                    // Wait for all promises to resolve
+                    await Promise.all(promises);
+
+                    startTime = performance.now();
+
+                    // Process files and folders sequentially
+                    // console.log("Files:", files);
+                    // console.log("Folders:", folders);
+                    // console.log("folderpaths:", folderpaths);
+                    uploadStatus.innerText = "\nCreating " + folders.length + " folder(s)..";
+
+                    let folderResponses = [];
+
+                    let folderId = '';
+                    if (region == "Java") {
+                        folderId = folder_java;
+                    } else if (region == "Sumatra") {
+                        folderId = folder_sumatra;
+                    } else if (region == "Kalimantan") {
+                        folderId = folder_kalimantan;
+                    } else {
+                        folderId = '';
+                    }
+                    console.log("creating " + folders.length + " folder(s)" + " in " + region + " " + folderId);
+                    let folderResponse = sendPostRequest('', true, folderpaths, folderId);
+                    folderResponses.push(folderResponse);
+
+
+                    await Promise.all(folderResponses);
+                    endTime = performance.now();
+                    duration = ((endTime - startTime) / 1000).toFixed(1);
+                    console.log("Create folders: " + duration + " s");
+                    startTime = performance.now();
+
+                    uploadcount = files.length;
+                    console.log("Uploading " + uploadcount + " files..");
+                    uploadStatus.innerText = "\nUploading " + uploadcount + " files..";
+
+                    async function limitConcurrency(tasks, concurrencyLimit, asyncTask) {
+                        const executing = [];
+                        const enqueue = async () => {
+                            if (tasks.length > 0 && executing.length < concurrencyLimit) {
+                                const task = tasks.shift();
+                                const promise = asyncTask(task);
+                                executing.push(promise);
+                                promise.then(() => executing.splice(executing.indexOf(promise), 1));
+                                promise.finally(enqueue);
+                            }
+                        };
+
+                        await Promise.all(Array.from({ length: concurrencyLimit }, enqueue));
+                    }
+
+                    async function handleFilesWithLimit(files) {
+                        const fileResponses = [];
+
+                        // Define the asynchronous task to be executed with concurrency limit
+                        async function asyncTask(file) {
+                            const fileResponse = await postfile4(file.item, file.name, folderId);
+                            fileResponses.push(fileResponse);
+                        }
+
+                        // Limit concurrency to 32 tasks
+
+                        await limitConcurrency(files, 32, asyncTask);
+
+
+                        // Await all remaining tasks to complete
+                        await Promise.all(fileResponses);
+                        //uploadStatus.innerText = "\nTotal upload=" + files.length + "\nFinished=" + uploadcount + '\nFailed:' + failcount + sfail;
+                        //console.log("All items processed.");
+
+                    }
+
+                    handleFilesWithLimit(files)
+                        .then(() => {
+                            console.log("Uploading all files");
+                        })
+                        .catch(error => console.error("Error processing files:", error));
+
+
+
+                } catch (error) {
+                    console.error("Error handling dropped items:", error);
+                }
+            }
+            console.log(items);
+            handleDroppedItems(items);
+
+
+
+        }
+
+
+    </script>
+</body>
+
+</html>
