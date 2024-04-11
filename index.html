@@ -536,8 +536,8 @@
                     <div class="frame-container" id="upperdiv">
                         <div class="subtitle open-sans-thin">Search</div>
                         <div class="search-container" id="searchContainer">
-                            <input type="text" id="searchInput" class="search-input" value="21SPT0169"
-                                onclick="clearValue()" onblur="resetValue()">
+                            <input type="text" id="searchInput" class="search-input" value="Site ID"
+                                onclick="clearValue()" onblur="resetValue()"> 
                             <button onclick="searchSite()" class="search-button">Search</button>
                         </div>
                         <div>
@@ -579,7 +579,10 @@
 
         function clearValue() {
             var searchInput = document.getElementById("searchInput");
-            // searchInput.value = "";
+            if (searchInput.value === "Site ID") {
+                searchInput.value = "";
+            }
+
         }
 
         function resetValue() {
