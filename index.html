@@ -4,8 +4,8 @@
 <head>
     <script>
         // This line declares a variable called "url" and assigns it a value of "Api_Endpoint_Url"
-        // deployment remarks: alpha 1.1
-        let url = "https://script.google.com/macros/s/AKfycbzDJzyIMTksyYCyDlsuObIktRqnse9RDxBxYqpKO0msnWn8S8sXmGUj4DFlMiHFhlA__g/exec";
+        // deployment remarks: alpha 1.4
+        let url = "https://script.google.com/macros/s/AKfycbwZjV6m2778Io0vWI0KaFSePgzvx0cCcokrVm5n6uPa9zvR_LM9enGamgUBt9O0US1Htg/exec";
         let folder_sumatra = '18OLcLDIpnI7ErgJHgaS1DztCSXqt2L0b';
         let folder_java = '1abv_c9lvKfOh_dE6GQAXHXqKj6GAOzUz';
         let folder_kalimantan = '1lP84IOUvlY1VaxiYZM6S_3-HuUx-NHZW';
@@ -13,11 +13,12 @@
         let startTime = performance.now();
         let return_url = "done;21SPT0169_240405_mt3.jpeg;https://drive.google.com/thumbnail?id=1QZhvAUKfURfq9Oe8HHahr_MaeqjpsEpe&sz=w1000;21SPT0169_240405_et3.jpeg;https://drive.google.com/thumbnail?id=16naMjJRtZW0Sgarplb305GLEhZEjawEv&sz=w1000;21SPT0169_240405_az3v.jpeg;https://drive.google.com/thumbnail?id=1umW6CZlqa3iQ2PdJNVGIw-qnPkcpqgzp&sz=w1000;21SPT0169_240405_az3.jpeg;https://drive.google.com/thumbnail?id=1Q2Weg85BUxVmO1sXuZaHVzJAh5cyDfHQ&sz=w1000;21SPT0169_240405_et2.jpeg;https://drive.google.com/thumbnail?id=11Dsc0bM-PGNdyvAws5Y0SSD_zpLhvv4c&sz=w1000;21SPT0169_240405_mt2.jpeg;https://drive.google.com/thumbnail?id=12AHwrBXItzYTz1YNDI8cOljSIXs5hfOr&sz=w1000;21SPT0169_240405_az2v.jpeg;https://drive.google.com/thumbnail?id=1e6zxIa4hl6E8q7UmNCO-t4ASj_rOk7pY&sz=w1000;21SPT0169_240405_az2.jpeg;https://drive.google.com/thumbnail?id=1GiX7PCcfTwf65fMYG8yCx3Hx4sHgPkZk&sz=w1000;21SPT0169_240405_et1.jpeg;https://drive.google.com/thumbnail?id=1Z2v8Yk8Xa6XtVjd8T1k0ycl2l0i9u7VN&sz=w1000;21SPT0169_240405_mt1.jpeg;https://drive.google.com/thumbnail?id=1wPvNj2-YJzBuQC2PggKYv7yaZ1s-dg-C&sz=w1000;21SPT0169_240405_az1v.jpeg;https://drive.google.com/thumbnail?id=15nfzF7gUEy7w_XWoW0qV2_vyGBzOBj-v&sz=w1000;21SPT0169_240405_az1.jpeg;https://drive.google.com/thumbnail?id=1NgEgRnORpUiUc2yxJdq2tEWP0_CQ-HNl&sz=w1000;21SPT0169_240405_t4.jpeg;https://drive.google.com/thumbnail?id=1MHh1Q_W_aFo-2spLRFZ5SKFPV10_Pi1k&sz=w1000;21SPT0169_240405_t3.jpeg;https://drive.google.com/thumbnail?id=1o5Wk_bm9Xu4CyYu5kw5V2glXCOqfk4Jm&sz=w1000;21SPT0169_240405_t2.jpeg;https://drive.google.com/thumbnail?id=1a4mnMJaPNYGR9JsHqr16-tQ_4WX-Ogtl&sz=w1000;21SPT0169_240405_t1.jpeg;https://drive.google.com/thumbnail?id=1mpxWXIARLaMYWvYAF3T-Xz8xfHIXKc6U&sz=w1000";
         let resultArray = [];
+        let indexArray = 0;
 
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nokia QTD by Dhani</title>
+    <title>Nokia QTD</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
@@ -260,7 +261,7 @@
             border-radius: 0px;
             font-family: 'Open Sans', sans-serif;
             transition: var(--anim-instant) transform 0.6s;
-            
+
             color: rgb(0, 0, 0);
         }
 
@@ -277,14 +278,15 @@
             /* Opaque font color on focus */
         }
 
-        .search-input:hover {            
+        .search-input:hover {
             transform: scale(1.05);
             /* Opaque font color on focus */
         }
+
         iframe {
-    border: none;
-    height: 100%; 
-}
+            /* border: none; */
+            height: 100%;
+        }
     </style>
 
     <style>
@@ -338,10 +340,10 @@
         .next {
             cursor: pointer;
             position: absolute;
-            top: 40%;
+            top: 50%;
             width: auto;
             padding: 16px;
-            margin-top: -50px;
+            /* margin-top: -50px; */
             color: white;
             font-weight: bold;
             font-size: 20px;
@@ -528,7 +530,7 @@
 
         <div id="bottomFrames">
             <div class="halfleft">
-                <!-- <div class="frame-container" id="leftBottomFrame"></div> -->                
+                <!-- <div class="frame-container" id="leftBottomFrame"></div> -->
                 <iframe id="leftBottomFrame" src="https://docs.google.com/spreadsheets/d/1H6q36D-_1c5_mXFpqhFtWQApCUTtigKLEFP3PgRwty8"></iframe>
             </div>
             <div class="halfright">
@@ -537,7 +539,7 @@
                         <div class="subtitle open-sans-thin">Search</div>
                         <div class="search-container" id="searchContainer">
                             <input type="text" id="searchInput" class="search-input" value="Site ID"
-                                onclick="clearValue()" onblur="resetValue()"> 
+                                onclick="clearValue()" onblur="resetValue()">
                             <button onclick="searchSite()" class="search-button">Search</button>
                         </div>
                         <div>
@@ -547,14 +549,14 @@
                                 </div>
                             </div>
 
-                            <div class="result  open-sans-thin" id="searchResult">Results</div>
+                            <div class="result  open-sans-thin" id="searchResult"></div>
                         </div>
 
                     </div>
                 </div>
                 <div class="iframe-container">
                     <div class="frame-container open-sans-thin" id="lowerdiv">
-                        <div class="subtitle open-sans-thin">Uploader</div>
+                        <div class="subtitle open-sans-thin" id="uploader">Uploader</div>
                         <div id="drop-area" class="rectangle open-sans-thin">Java
                         </div>
                         <div id="drop-area2" class="rectangle open-sans-thin">Sumatra
@@ -572,6 +574,19 @@
     </div>
 
     <script>
+        var spanElement = document.getElementById("nokia");
+        spanElement.addEventListener("click", function () {
+            var url = "https://docs.google.com/spreadsheets/d/1H6q36D-_1c5_mXFpqhFtWQApCUTtigKLEFP3PgRwty8";
+            window.open(url, "_blank");
+        });
+        
+        var uploaderElement = document.getElementById("uploader");
+        uploaderElement.addEventListener("click", function () {
+            var url = "https://drive.google.com/drive/folders/1CvPDze6Ye7gjrNnHxtY2ScZiwSsrZsGy";
+            window.open(url, "_blank");
+        });
+        
+
         function showSearchContainer() {
             var searchContainer = document.getElementById("searchContainer");
             searchContainer.style.display = "block";
@@ -667,7 +682,7 @@
             var searchInput = document.getElementById("searchInput");
             console.log('searchInput', searchInput.value);
 
-
+            searchInput.value = searchInput.value.toUpperCase();
             sendPostRequest('search', true, searchInput.value, folder_all).then(responseData => {
 
                 // To stop the interval, call clearInterval with the interval ID
@@ -676,47 +691,53 @@
                 console.log("response:", responseData);
                 if (responseData.startsWith("search done")) {
 
+                    resultArray = [];
+                    indexArray = 0;
+                    var searchResult = document.getElementById("searchResult");
+                    searchResult.innerHTML = "Nothing";
 
                     return_url = responseData;
+                    let sites = return_url.split('\\');
+                    console.log("sites:", sites);
+                    for (let j = 0; j < sites.length - 1; j++) {
+                        let parts = [];
+                        if (j === 0) {
+                            parts = sites[j].split(';').slice(1);
+                            searchResult.innerHTML = "Result";
+                        } else {
+                            parts = sites[j].split(';');
+                        }
 
-                    let parts = return_url.split(';').slice(1);
+                        console.log("parts:", parts);
+                        // Initialize an empty array to store objects
+                        // resultArray = [];
+                        let siteArray = [];
+                        // Loop through the parts array and create objects
+                        for (let i = 0; i < parts.length; i += 2) {
+                            let filename_parts = parts[i].split('.')[0].split('_');
+                            let site = filename_parts[0] + '_' + filename_parts[1];
+                            let name = filename_parts.slice(2).join('_');
+                            let url = parts[i + 1];
+                            // resultArray.push({ site, name, url });
+                            siteArray.push({ site, name, url });
+                        }
+                        resultArray.push(siteArray);
+                        console.log("resultArray:", resultArray);
+                        console.log("siteArray:", siteArray);
+                        // searchResult.innerHTML += '<br><span style="font-size:14px;cursor:pointer" onclick="openNav(\'' + json + '\')">' + resArr[0].site + '</span>';
+                        searchResult.innerHTML += '<br><span style="font-size:14px;cursor:pointer" onclick="openNav(' + indexArray + ')">' + siteArray[0].site + '</span>';
+                        indexArray = indexArray + 1;
 
-                    // Initialize an empty array to store objects
-                    resultArray = [];
+                        // console.log(searchResult.innerHTML);
 
-                    // Loop through the parts array and create objects
-                    for (let i = 0; i < parts.length; i += 2) {
-                        let filename_parts = parts[i].split('.')[0].split('_');
-                        let site = filename_parts[0] + '_' + filename_parts[1];
-                        let name = filename_parts.slice(2).join('_');
-                        let url = parts[i + 1];
-                        resultArray.push({ site, name, url });
+                        // // Loop through the resultArray and log site, name, and url of each object
+                        // for (let obj of resultArray) {
+                        //     console.log("Site:", obj.site);
+                        //     console.log("Name:", obj.name);
+                        //     console.log("URL:", obj.url);
+                        // }
                     }
 
-                    uploadStatus.innerHTML = "Result";
-                    searchResult.innerHTML += '<br><span style="font-size:14px;cursor:pointer" onclick="openNav()">' + resultArray[0].site + '</span>';
-
-                    // Loop through the resultArray and log site, name, and url of each object
-                    for (let obj of resultArray) {
-                        console.log("Site:", obj.site);
-                        console.log("Name:", obj.name);
-                        console.log("URL:", obj.url);
-                    }
-
-                    // var splittedData = responseData.split(";");
-                    // console.log(splittedData)
-                    // var folderLink = splittedData[1].trim(); // Second split for folder
-                    // const cnt = folderLink.length;
-
-                    // var searchResult = document.getElementById("searchResult");
-
-                    // for (let ititle = 1; ititle < splittedData.length; ititle += 2) {
-                    //     //start from second index and on odd index only
-                    //     var title = splittedData[ititle];
-                    //     var titlelink = splittedData[ititle + 1];
-                    //     // searchResult.innerHTML += '<br><a href="' + titlelink + '" target="_blank" style="color: white;">' + title + '</a>';
-
-                    // }
                 }
             })
                 .catch(error => {
@@ -759,7 +780,10 @@
 
 
 
-        function openNav() {
+        function openNav(idx) {
+            // let resArr = JSON.parse(jsonString);
+            resArr = resultArray[idx];
+            console.log('openNav resArr:' + resArr);
             createGalery();
 
             slideIndex = 1;
@@ -781,11 +805,11 @@
 {slides}
 <a class="prev" onclick="plusSlides(-1)">❮</a>
 <a class="next" onclick="plusSlides(1)">❯</a>
-
+</div>
 <div class="caption-container">
 <p id="caption"></p>
 </div>
-
+<div class="container">
 <div class="row">
 {thumbnails}
 </div>
@@ -797,11 +821,11 @@
             let thumbnailsHTML = "";
 
             // Iterate through each object in resultArray
-            resultArray.forEach((obj, index) => {
+            resArr.forEach((obj, index) => {
                 // Generate HTML for each slide
                 let slideHTML = `
 <div class="mySlides">
-<div class="numbertext">${index + 1} / ${resultArray.length}</div>
+<div class="numbertext">${index + 1} / ${resArr.length}</div>
 <img src="${obj.url}">
 </div>
 `;
@@ -819,7 +843,7 @@
 
             // Replace placeholders in the template with actual HTML
             let overlayContentHTML = template
-                .replace("{site}", resultArray[0].site)
+                .replace("{site}", resArr[0].site)
                 .replace("{slides}", slidesHTML)
                 .replace("{thumbnails}", thumbnailsHTML);
 
