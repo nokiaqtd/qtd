@@ -4,8 +4,8 @@
 <head>
     <script>
         // This line declares a variable called "url" and assigns it a value of "Api_Endpoint_Url"
-        // deployment remarks: alpha 1.5
-        let url = "https://script.google.com/macros/s/AKfycbyecPT_HYgRip6a7toWsm4SMqKWfMwYgjfWnp0bUOO9XZpmGBN-nDbk14wIG-iJ9yCLGA/exec";
+        // deployment remarks: alpha 1.7
+        let url = "https://script.google.com/macros/s/AKfycbzvj_9MJqVCMjf-NwrA0GCJReeOkye9TrULR4ZtFLBTZFasZ_Jj2BAtU0HAHSK0iyxuFQ/exec";
         let folder_sumatra = '18OLcLDIpnI7ErgJHgaS1DztCSXqt2L0b';
         let folder_java = '1abv_c9lvKfOh_dE6GQAXHXqKj6GAOzUz';
         let folder_kalimantan = '1lP84IOUvlY1VaxiYZM6S_3-HuUx-NHZW';
@@ -379,13 +379,21 @@
             top: 0;
         }
 
-        /* Container for image text */
+
+
         .caption-container {
-            text-align: center;
             background-color: #222;
             padding: 2px 16px;
             font-size: 16px;
             color: white;
+        }
+
+        #caption {
+            float: right;
+        }
+
+        #caption1 {
+            float: left;
         }
 
         /* .row:after {
@@ -501,7 +509,7 @@
             top: 0px;
             right: 10px;
             font-size: 15px;
-
+            z-index: 9999;
         }
     </style>
 
@@ -531,7 +539,8 @@
         <div id="bottomFrames">
             <div class="halfleft">
                 <!-- <div class="frame-container" id="leftBottomFrame"></div> -->
-                <iframe id="leftBottomFrame" src="https://docs.google.com/spreadsheets/d/1H6q36D-_1c5_mXFpqhFtWQApCUTtigKLEFP3PgRwty8"></iframe>
+                <iframe id="leftBottomFrame"
+                    src="https://docs.google.com/spreadsheets/d/1H6q36D-_1c5_mXFpqhFtWQApCUTtigKLEFP3PgRwty8"></iframe>
             </div>
             <div class="halfright">
                 <div class="iframe-container">
@@ -579,13 +588,13 @@
             var url = "https://docs.google.com/spreadsheets/d/1H6q36D-_1c5_mXFpqhFtWQApCUTtigKLEFP3PgRwty8";
             window.open(url, "_blank");
         });
-        
+
         var uploaderElement = document.getElementById("uploader");
         uploaderElement.addEventListener("click", function () {
             var url = "https://drive.google.com/drive/folders/1CvPDze6Ye7gjrNnHxtY2ScZiwSsrZsGy";
             window.open(url, "_blank");
         });
-        
+
 
         function showSearchContainer() {
             var searchContainer = document.getElementById("searchContainer");
@@ -737,7 +746,9 @@
                         //     console.log("URL:", obj.url);
                         // }
                     }
-
+                    if (indexArray > 0) {
+                        openNav(0);
+                    }
                 }
             })
                 .catch(error => {
@@ -765,6 +776,7 @@
             let slides = document.getElementsByClassName("mySlides");
             let dots = document.getElementsByClassName("demo");
             let captionText = document.getElementById("caption");
+            let captionText1 = document.getElementById("caption1");
             if (n > slides.length) { slideIndex = 1 }
             if (n < 1) { slideIndex = slides.length }
             for (i = 0; i < slides.length; i++) {
@@ -776,6 +788,11 @@
             slides[slideIndex - 1].style.display = "block";
             dots[slideIndex - 1].className += " active";
             captionText.innerHTML = dots[slideIndex - 1].alt;
+            if (dots[slideIndex - 1].alt.charAt(0) === 'b') {
+                captionText1.innerHTML = "AFTER INTEGRATION";
+            } else {
+                captionText1.innerHTML = "BEFORE INTEGRATION";
+            }
         }
 
 
@@ -799,7 +816,6 @@
         function createGalery() {
             // Template for overlay content
             let template = `
-<h2 style="text-align:center">{site}</h2>
 
 <div class="container">
 {slides}
@@ -807,7 +823,7 @@
 <a class="next" onclick="plusSlides(1)">❯</a>
 </div>
 <div class="caption-container">
-<p id="caption"></p>
+    <span id="caption1"></span><span id="caption"></span><h2 style="text-align:center">{site}</h2>
 </div>
 <div class="container">
 <div class="row">
@@ -1350,7 +1366,7 @@
         } else {
             console.log('No value found for "siteid" query parameter');
         }
-    </script>    
+    </script>
 </body>
 
 </html>
