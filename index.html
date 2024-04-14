@@ -710,6 +710,9 @@
                     let sites = return_url.split('\\');
                     console.log("sites:", sites);
                     for (let j = 0; j < sites.length - 1; j++) {
+                        if (sites[j].charAt(sites[j].length - 1) === ';') {
+                            sites[j] = sites[j].substring(0, sites[j].length - 1);
+                        }
                         let parts = [];
                         if (j === 0) {
                             parts = sites[j].split(';').slice(1);
