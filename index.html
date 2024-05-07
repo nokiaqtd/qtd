@@ -4,8 +4,8 @@
 <head>
     <script>
         // This line declares a variable called "url" and assigns it a value of "Api_Endpoint_Url"
-        // deployment remarks: 1.19
-        let url = "https://script.google.com/macros/s/AKfycbyo_v9lW1-eDon_Im-zpQuBGJBG2PvgYk5mcDKtD_K6T6Kni8BQCG07Sfx3pMRbAnrwaw/exec";
+        // deployment remarks: 1.21
+        let url = "https://script.google.com/macros/s/AKfycbx0amvk5HWhybcdEKwPUkPCnWNLr1DyER6MaWteqE0H_AUlg6K9pDcUKTRV8lSj7Ye22w/exec";
         let folder_sumatra = '18OLcLDIpnI7ErgJHgaS1DztCSXqt2L0b';
         let folder_java = '1abv_c9lvKfOh_dE6GQAXHXqKj6GAOzUz';
         let folder_kalimantan = '1lP84IOUvlY1VaxiYZM6S_3-HuUx-NHZW';
@@ -623,7 +623,7 @@
             let intervalID = setInterval(updateDuration, 100);
             let isSending = false;
             const sendQueue = [];
-
+            
             function sendPostRequest(foldername, newfolder, folders, folderId) {
                 return new Promise((resolve, reject) => {
                     const requestData = {
@@ -632,7 +632,7 @@
                         folders: folders,
                         folderId: folderId
                     };
-
+                    console.log("search folderId=",folderId);
                     sendQueue.push({ requestData, resolve, reject });
 
                     if (!isSending) {
@@ -1362,10 +1362,12 @@
         }
 
         var siteidValue = getParameterByName('siteid');
+        console.log('Value of "siteid" query parameter:', siteidValue);
         if (siteidValue) {
             console.log('Value of "siteid" query parameter:', siteidValue);
             var searchInput = document.getElementById("searchInput");
             searchInput.value = siteidValue.toUpperCase();
+            
             searchSite();
         } else {
             console.log('No value found for "siteid" query parameter');
