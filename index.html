@@ -10,9 +10,10 @@
         //let url = "https://script.google.com/macros/s/AKfycbz-ZYHuUXE0_bz4ifwpsTZUk7pp3lfGZItL5D4oYhujSSX7TdFFtkyR8jNoaTNXN8x_eQ/exec";
         // deployment remarks: 1.27 add mailing list SS
         //let url = "https://script.google.com/macros/s/AKfycbz_he-H_wSOYyP0a_qv_PNc2XOPvN0MCrPZIxh0YlfnhmZUlzz0mmoCb_t4ah1sehnJ0w/exec";
-	// deployment remarks: 1.28 efficient search
-        let url = "https://script.google.com/macros/s/AKfycbyYSJD7c_mGZeqA0POX5h3_r2MGQxVNmLys4nKq0PXo9PuoBtVkQrplbkX6B7vKT4ghrA/exec";
-        
+		// deployment remarks: 1.28 efficient search
+        //let url = "https://script.google.com/macros/s/AKfycbw15mK5uxYETdRb3iKUUULz_VDXtJCmCUvEdX36KYH5f69WIotk6ZVx039kmxXz9KY1OQ/exec";
+		let url = "https://script.google.com/macros/s/AKfycbxUbORlCPRCtAxec2UAyusvSJ3mWyiu-HmFHOP2oToVGy4lyy-lvePBecvUxM5Frcwz-A/exec";
+		
         let folder_sumatra = '18OLcLDIpnI7ErgJHgaS1DztCSXqt2L0b';
         let folder_java = '1abv_c9lvKfOh_dE6GQAXHXqKj6GAOzUz';
         let folder_kalimantan = '1lP84IOUvlY1VaxiYZM6S_3-HuUx-NHZW';
@@ -591,6 +592,8 @@
     </div>
 
     <script>
+		let currentGalleryIndex = 0; // to remember the last opened index
+		
         var spanElement = document.getElementById("nokia");
         spanElement.addEventListener("click", function () {
             var url = "https://docs.google.com/spreadsheets/d/1H6q36D-_1c5_mXFpqhFtWQApCUTtigKLEFP3PgRwty8";
@@ -626,6 +629,8 @@
 
         function searchSite() {
             // Your search functionality here
+			document.querySelectorAll('.iframe-container')[1].style.display = "none";
+			document.getElementById("upperdiv").style.height = "100%";			
             startTime = performance.now();
             let intervalID = setInterval(updateDuration, 100);
             let isSending = false;
@@ -810,6 +815,7 @@
 
         function openNav(idx) {
             // let resArr = JSON.parse(jsonString);
+			currentGalleryIndex = idx;
             resArr = resultArray[idx];
             console.log('openNav resArr:' + resArr);
             createGalery();
@@ -1379,6 +1385,16 @@
         } else {
             console.log('No value found for "siteid" query parameter');
         }
+		document.addEventListener("keydown", function (e) {
+			if (e.ctrlKey && e.key === 'q') {
+				const myNav = document.getElementById("myNav");
+				if (myNav.style.width === "100%") {
+					closeNav();
+				} else if ((myNav.style.width === "0%" || myNav.style.width === "") && resultArray.length > 0) {
+					openNav(currentGalleryIndex);
+				}
+			}
+		});		
     </script>
 </body>
 
